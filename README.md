@@ -1,9 +1,8 @@
-# 🦟 Predicción de Hospitalización por Dengue en Bucaramanga
-### Trabajo de Maestría — Análisis Avanzado de Datos en Salud Pública
+# Predicción de Hospitalización por Dengue en Bucaramanga
 
 ---
 
-## 📋 Descripción del Proyecto
+##  Descripción del Proyecto
 
 Este repositorio contiene el pipeline completo de análisis de datos para la predicción de hospitalización por dengue en el municipio de **Bucaramanga, Colombia**, a partir de datos epidemiológicos del Sistema Nacional de Vigilancia en Salud Pública (SIVIGILA).
 
@@ -14,7 +13,7 @@ El objetivo central es desarrollar modelos de clasificación supervisada capaces
 
 ---
 
-## 🗂️ Estructura del Repositorio
+##  Estructura del Repositorio
 
 ```
 dengue_maestria/
@@ -82,7 +81,7 @@ dengue_maestria/
 
 ---
 
-## 🔬 Flujo Analítico
+##  Flujo Analítico
 
 ```
 [Datos SIVIGILA] 
@@ -102,7 +101,7 @@ dengue_maestria/
 
 ---
 
-## 📦 Instalación
+##  Instalación
 
 ```bash
 git clone https://github.com/usuario/dengue_maestria.git
@@ -112,7 +111,7 @@ pip install -r requirements.txt
 
 ---
 
-## 📊 Datos
+##  Datos
 
 - **Fuente:** SIVIGILA — Instituto Nacional de Salud, Colombia
 - **Municipio:** Bucaramanga, Santander
@@ -125,7 +124,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🏥 Contexto Clínico
+##  Contexto Clínico
 
 La OMS clasifica el dengue en tres categorías:
 1. **Sin signos de alarma** — manejo ambulatorio en la mayoría de casos
@@ -136,17 +135,11 @@ La predicción de hospitalización en los estratos 1 y 2 es crítica para la ges
 
 ---
 
-## 📈 Métricas Principales
+##  Métricas Principales
 
 | Estrato | Métrica primaria | Justificación |
 |---|---|---|
 | DCSA | F1-score (clase positiva) | Balance entre sensibilidad y precisión en clase mayoritaria hospitalizada |
 | DSSA | Balanced Accuracy + AUC-PR | Desbalance severo (~8% hospitalizados); relevancia clínica de falsos negativos |
 
----
 
-## 👥 Autoría
-
-Trabajo de Maestría en Inteligencia Artificial / Ciencia de Datos  
-Universidad — Facultad de Ingeniería  
-Año: 2024–2025
