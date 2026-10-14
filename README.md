@@ -146,7 +146,5 @@ La predicción de hospitalización en los estratos 1 y 2 es crítica para la ges
 ---
 
 ## 👥 Autoría
-Deiner Rivera
-Trabajo de Maestría en Ingeniería 
-Universidad — Facultad de Ingeniería  
-Año: 2024–2026
+
+Deiner Rivera | Trabajo de Maestría en Ingeniería  |  Universidad — Facultad de Ingeniería  |  Año: 2024–2026
