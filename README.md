@@ -1,5 +1,5 @@
-# Predicción de Hospitalización por Dengue en Bucaramanga
- 
+# 🦟 Predicción de Hospitalización por Dengue en Bucaramanga
+### Trabajo de Maestría — Análisis Avanzado de Datos en Salud Pública
 
 ---
 
@@ -147,4 +147,6 @@ La predicción de hospitalización en los estratos 1 y 2 es crítica para la ges
 
 ## 👥 Autoría
 
-Deiner Rivera | Trabajo de Maestría en Ingeniería  |  Universidad — Facultad de Ingeniería  |  Año: 2024–2026
+Trabajo de Maestría en Inteligencia Artificial / Ciencia de Datos  
+Universidad — Facultad de Ingeniería  
+Año: 2024–2025
