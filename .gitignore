@@ -1,0 +1,40 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# .gitignore — Proyecto Dengue Bucaramanga
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Datos sensibles (NUNCA subir datos de pacientes a repositorios públicos)
+data/raw/
+data/interim/
+data/processed/
+*.csv
+*.xlsx
+
+# Modelos serializados (pueden ser grandes; manejar con DVC o LFS)
+outputs/models/*.pkl
+outputs/checkpoints/*.pkl
+
+# Salidas (se regeneran corriendo los notebooks)
+outputs/figures/*.png
+outputs/tables/*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.ipynb_checkpoints/
+.env
+venv/
+env/
+.venv/
+
+# Jupyter
+.jupyter/
+*.ipynb_checkpoints
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+*.swp
