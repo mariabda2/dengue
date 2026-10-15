@@ -43,13 +43,9 @@ dengue_maestria/
 │   │
 │   ├── 03_modelado/
 │   │   ├── con_signos/
-│   │   │   ├── 03a_baseline_con_signos.ipynb        # Dummy + Decision Tree
-│   │   │   ├── 03b_modelos_avanzados_con_signos.ipynb  # RF, XGB, LGBM, CatBoost
-│   │   │   └── 03c_evaluacion_final_con_signos.ipynb   # Comparación y selección
+│   │   │   └── 03_modelado_con_signos.ipynb   # DCSA · baseline + portafolio + evaluación final
 │   │   └── sin_signos/
-│   │       ├── 03a_baseline_sin_signos.ipynb
-│   │       ├── 03b_modelos_avanzados_sin_signos.ipynb
-│   │       └── 03c_evaluacion_final_sin_signos.ipynb
+│   │       └── 03_modelado_sin_signos.ipynb   # DSSA · baseline + portafolio + evaluación final
 │   │
 │   ├── 04_clustering/
 │   │   └── 04_analisis_no_supervisado.ipynb     # KMeans + Clustering jerárquico
