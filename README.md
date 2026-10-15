@@ -1,74 +1,71 @@
 # Predicción de Hospitalización por Dengue en Bucaramanga
+### Trabajo de Maestría — Análisis Avanzado de Datos en Salud Pública
 
 ---
 
-##  Descripción del Proyecto
+## Descripción del Proyecto
 
 Este repositorio contiene el pipeline completo de análisis de datos para la predicción de hospitalización por dengue en el municipio de **Bucaramanga, Colombia**, a partir de datos epidemiológicos del Sistema Nacional de Vigilancia en Salud Pública (SIVIGILA).
 
-El objetivo central es desarrollar modelos de clasificación supervisada capaces de identificar, al momento de la notificación, qué pacientes con dengue requieren hospitalización. El análisis se estratifica por clasificación clínica:
+El objetivo central es desarrollar modelos de clasificación supervisada capaces de identificar, al momento de la consulta, qué pacientes con dengue requieren hospitalización. El análisis se estratifica por clasificación clínica:
 
-- **Dengue con signos de alarma (DCSA)**
-- **Dengue sin signos de alarma (DSSA)**
+- **Dengue con signos de alarma (DCSA)** — 12,713 casos · 64.8% hospitalización
+- **Dengue sin signos de alarma (DSSA)** — 15,734 casos · 3.9% hospitalización
 
 ---
 
-##  Estructura del Repositorio
+## Estructura del Repositorio
 
 ```
 dengue_maestria/
 │
 ├── data/
-│   ├── raw/                        # Datos originales sin modificar
-│   │   └── datos_dengue_bucaramanga_depurado.csv
-│   ├── interim/                    # Datos intermedios (post-limpieza, pre-features)
-│   │   ├── datos_con_signos.pkl
-│   │   └── datos_sin_signos.pkl
-│   └── processed/                  # Datos listos para modelado
-│       ├── X_train_con_signos.pkl
-│       ├── X_test_con_signos.pkl
-│       ├── X_train_sin_signos.pkl
-│       └── X_test_sin_signos.pkl
+│   ├── raw/
+│   │   └── datos_dengue_bucaramanga_depurado.csv   # Datos originales SIVIGILA 2015–2025
+│   ├── interim/                                     # Subcohortes por estrato clínico
+│   │   ├── datos_con_signos.pkl                     # DCSA
+│   │   └── datos_sin_signos.pkl                     # DSSA
+│   └── processed/                                   # Particiones train/test
+│       ├── particion_DCSA.pkl
+│       └── particion_DSSA.pkl
 │
 ├── notebooks/
 │   ├── 00_setup/
-│   │   └── 00_entorno_y_dependencias.ipynb      # Instalación y verificación del entorno
+│   │   └── 00_entorno_y_dependencias.ipynb          # Instalación y verificación del entorno
 │   │
 │   ├── 01_eda/
-│   │   └── 01_exploracion_general.ipynb         # EDA completo sobre todas las categorías
+│   │   └── 01_exploracion_general.ipynb             # EDA completo · calidad · temporalidad
 │   │
 │   ├── 02_analisis_clinico/
-│   │   ├── 02a_analisis_univariado_bivariado.ipynb  # Análisis estadístico de síntomas
-│   │   └── 02b_regresion_logistica_clinica.ipynb    # Odds Ratios y modelos explicativos
+│   │   ├── 02a_analisis_univariado_bivariado.ipynb  # OR crudos · forest plots · heatmaps
+│   │   └── 02b_regresion_logistica_clinica.ipynb    # OR ajustados · VIF · modelos anidados
 │   │
 │   ├── 03_modelado/
 │   │   ├── con_signos/
-│   │   │   └── 03_modelado_con_signos.ipynb   # DCSA · baseline + portafolio + evaluación final
+│   │   │   ├── 03a_modelado_con_signos.ipynb        # DCSA · baseline + portafolio + evaluación
+│   │   │   └── 03b_validacion_temporal_con_signos.ipynb  # DCSA · validación 2015-2021 → 2022-2025
 │   │   └── sin_signos/
-│   │       └── 03_modelado_sin_signos.ipynb   # DSSA · baseline + portafolio + evaluación final
+│   │       ├── 03c_modelado_sin_signos.ipynb        # DSSA · baseline + portafolio + evaluación
+│   │       └── 03d_validacion_temporal_sin_signos.ipynb  # DSSA · validación temporal
 │   │
 │   ├── 04_clustering/
-│   │   └── 04_analisis_no_supervisado.ipynb     # KMeans + Clustering jerárquico
+│   │   └── 04_analisis_no_supervisado.ipynb         # KMeans + clustering jerárquico + PCA
 │   │
 │   └── 05_reportes/
-│       └── 05_resultados_consolidados.ipynb     # Síntesis final de hallazgos
+│       └── 05_resultados_consolidados.ipynb         # Síntesis final · tabla comparativa
 │
 ├── outputs/
-│   ├── figures/                    # Gráficas exportadas en alta resolución (300 dpi)
-│   ├── tables/                     # Tablas exportadas en CSV y Excel
-│   ├── models/                     # Modelos entrenados serializados (.pkl, .json)
-│   └── checkpoints/                # Estados intermedios para reproducibilidad
+│   ├── figures/        # Figuras exportadas 300 dpi
+│   ├── tables/         # Tablas CSV
+│   ├── models/         # Modelos serializados .pkl
+│   └── checkpoints/    # Estados intermedios para no repetir cálculos costosos
 │
 ├── src/
-│   ├── config.py                   # Rutas, semillas, hiperparámetros globales
-│   ├── preprocessing.py            # Funciones de limpieza y transformación
-│   ├── features.py                 # Ingeniería de variables
-│   ├── modeling.py                 # Entrenamiento y evaluación de modelos
-│   └── visualization.py            # Funciones de visualización Q1
+│   └── config.py       # Rutas · semillas · variables · paleta de colores
 │
 ├── docs/
-│   ├── diccionario_variables.md    # Descripción de todas las variables SIVIGILA
-│   └── decisiones_analiticas.md    # Registro de decisiones metodológicas
+│   ├── diccionario_variables.md    # 82 variables SIVIGILA documentadas
+│   └── decisiones_analiticas.md   # Registro de decisiones metodológicas
 │
 ├── requirements.txt
 ├── .gitignore
@@ -77,27 +74,29 @@ dengue_maestria/
 
 ---
 
-##  Flujo Analítico
+## Flujo Analítico
 
 ```
-[Datos SIVIGILA] 
+[Datos SIVIGILA 2015–2025 · 28,626 casos · 82 variables]
       ↓
-[00_setup] → Entorno reproducible
+[00_setup]          → Entorno reproducible · dependencias fijadas
       ↓
-[01_EDA] → Exploración, calidad, temporalidad
+[01_EDA]            → Calidad del dato · correcciones auditadas · sesgo temporal
       ↓
-[02_Análisis Clínico] → Estadística descriptiva, OR, modelos explicativos
+[02_Análisis Clínico] → OR crudos y ajustados · VIF · modelos explicativos
       ↓
-[03_Modelado] → Clasificación supervisada por estrato clínico
+[03_Modelado DCSA]  → Baseline → portafolio 9 modelos → validación temporal
       ↓
-[04_Clustering] → Segmentación no supervisada de perfiles de riesgo
+[03_Modelado DSSA]  → Baseline → portafolio 9 modelos → validación temporal
       ↓
-[05_Reportes] → Síntesis, visualizaciones finales, tabla comparativa
+[04_Clustering]     → Segmentación no supervisada de perfiles de riesgo
+      ↓
+[05_Reportes]       → Síntesis · comparativa DCSA vs DSSA · recomendaciones
 ```
 
 ---
 
-##  Instalación
+## Instalación
 
 ```bash
 git clone https://github.com/usuario/dengue_maestria.git
@@ -105,37 +104,78 @@ cd dengue_maestria
 pip install -r requirements.txt
 ```
 
+Antes de ejecutar cualquier notebook, copia el CSV a `data/raw/`:
+```
+data/raw/datos_dengue_bucaramanga_depurado.csv
+```
+Luego ejecuta `00_entorno_y_dependencias.ipynb` completo.
+
 ---
 
-##  Datos
+## Datos
 
-- **Fuente:** SIVIGILA — Instituto Nacional de Salud, Colombia
-- **Municipio:** Bucaramanga, Santander
-- **Período:** 2015–2023
-- **Registros:** ~36,000 casos notificados
-- **Variables:** 82 columnas (demográficas, clínicas, epidemiológicas)
-- **Variable objetivo:** `TARGET_HOSPITALIZACION_ORIGINAL` (1 = hospitalizado, 0 = ambulatorio)
+| Atributo | Detalle |
+|----------|---------|
+| Fuente | SIVIGILA — Instituto Nacional de Salud, Colombia |
+| Municipio | Bucaramanga, Santander |
+| Período | 2015–2025 |
+| Registros | 28,626 casos notificados |
+| Variables | 82 columnas (demográficas, clínicas, epidemiológicas) |
+| Variable objetivo | `TARGET_HOSPITALIZACION_ORIGINAL` (1=hospitalizado, 0=ambulatorio) |
 
 > **Nota de privacidad:** Los datos han sido anonimizados conforme a los lineamientos del INS. No se incluyen identificadores personales.
 
 ---
 
-##  Contexto Clínico
+## Contexto Clínico
 
 La OMS clasifica el dengue en tres categorías:
-1. **Sin signos de alarma** — manejo ambulatorio en la mayoría de casos
-2. **Con signos de alarma** — requiere observación hospitalaria cercana
+1. **Sin signos de alarma (DSSA)** — manejo ambulatorio en la mayoría de casos
+2. **Con signos de alarma (DCSA)** — requiere observación hospitalaria cercana
 3. **Dengue grave** — requiere hospitalización inmediata
 
-La predicción de hospitalización en los estratos 1 y 2 es crítica para la gestión de recursos hospitalarios durante picos epidémicos.
+La predicción de hospitalización en los estratos DSSA y DCSA es crítica para la gestión de recursos hospitalarios durante picos epidémicos. Bucaramanga registró un incremento sostenido en la tasa de hospitalización DCSA del 19.7% (2015) al 89.1% (2025), asociado a cambios en los protocolos de clasificación del INS.
 
 ---
 
-##  Métricas Principales
+## Métricas y Estrategia por Estrato
 
-| Estrato | Métrica primaria | Justificación |
-|---|---|---|
-| DCSA | F1-score (clase positiva) | Balance entre sensibilidad y precisión en clase mayoritaria hospitalizada |
-| DSSA | Balanced Accuracy + AUC-PR | Desbalance severo (~8% hospitalizados); relevancia clínica de falsos negativos |
+| Estrato | Desbalance | Métrica primaria | Justificación |
+|---------|-----------|-----------------|---------------|
+| DCSA | 65% / 35% | F1-score | Desbalance moderado — F1 equilibra precisión y sensibilidad |
+| DSSA | 96% / 4% | AUC-PR | Desbalance severo — AUC-ROC es engañosamente alto; AUC-PR penaliza falsos negativos en clase minoritaria |
 
+---
 
+## Decisiones Metodológicas Clave
+
+| Decisión | Justificación |
+|----------|---------------|
+| AÑO excluido de features | Variable de control de sesgo temporal, no disponible en clínica real |
+| SMOTE solo en train | Aplicarlo en test produce data leakage |
+| n_jobs=1 en CV | Previene colapso de RAM por paralelismo excesivo en Windows |
+| Validación temporal separada | La partición aleatoria mezcla regímenes de clasificación distintos (2015-2021 vs 2022-2025) |
+| Modelos separados por estrato | La tasa de hospitalización difiere radicalmente (65% vs 4%): mismos features, distinta señal |
+
+Ver detalles en `docs/decisiones_analiticas.md`.
+
+---
+
+## Resultados Preliminares — DCSA
+
+| Modelo | F1 (test) | AUC-ROC | AUC-PR | Bal. Acc |
+|--------|-----------|---------|--------|----------|
+| Extra Trees | **0.8057** | 0.8261 | 0.8936 | 0.7714 |
+| Random Forest | 0.8056 | 0.8310 | **0.9000** | **0.7727** |
+| XGBoost | 0.8056 | 0.8297 | 0.8981 | 0.7716 |
+| Dummy (baseline) | 0.7868 | 0.5000 | 0.6485 | 0.5000 |
+
+Los tres modelos avanzados son estadísticamente equivalentes (ΔF1 < 0.001).
+El techo informativo de los features SIVIGILA se alcanza con ~3,000 casos de entrenamiento.
+
+---
+
+## Autoría
+
+Trabajo de Maestría en Inteligencia Artificial / Ciencia de Datos
+Facultad de Ingeniería · 2024–2025
