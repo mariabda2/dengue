@@ -1,5 +1,5 @@
 # Predicción de Hospitalización por Dengue en Bucaramanga
-### Trabajo de Maestría — Análisis Avanzado de Datos en Salud Pública
+Análisis Avanzado de Datos en Salud Pública
 
 ---
 
@@ -147,35 +147,8 @@ La predicción de hospitalización en los estratos DSSA y DCSA es crítica para 
 
 ---
 
-## Decisiones Metodológicas Clave
 
-| Decisión | Justificación |
-|----------|---------------|
-| AÑO excluido de features | Variable de control de sesgo temporal, no disponible en clínica real |
-| SMOTE solo en train | Aplicarlo en test produce data leakage |
-| n_jobs=1 en CV | Previene colapso de RAM por paralelismo excesivo en Windows |
-| Validación temporal separada | La partición aleatoria mezcla regímenes de clasificación distintos (2015-2021 vs 2022-2025) |
-| Modelos separados por estrato | La tasa de hospitalización difiere radicalmente (65% vs 4%): mismos features, distinta señal |
 
-Ver detalles en `docs/decisiones_analiticas.md`.
 
----
 
-## Resultados Preliminares — DCSA
 
-| Modelo | F1 (test) | AUC-ROC | AUC-PR | Bal. Acc |
-|--------|-----------|---------|--------|----------|
-| Extra Trees | **0.8057** | 0.8261 | 0.8936 | 0.7714 |
-| Random Forest | 0.8056 | 0.8310 | **0.9000** | **0.7727** |
-| XGBoost | 0.8056 | 0.8297 | 0.8981 | 0.7716 |
-| Dummy (baseline) | 0.7868 | 0.5000 | 0.6485 | 0.5000 |
-
-Los tres modelos avanzados son estadísticamente equivalentes (ΔF1 < 0.001).
-El techo informativo de los features SIVIGILA se alcanza con ~3,000 casos de entrenamiento.
-
----
-
-## Autoría
-
-Trabajo de Maestría en Inteligencia Artificial / Ciencia de Datos
-Facultad de Ingeniería · 2024–2025
