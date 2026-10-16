@@ -87,8 +87,6 @@ dengue_maestria/
       ↓
 [03_Modelado DCSA]  → Baseline → portafolio 9 modelos → validación temporal
       ↓
-[03_Modelado DSSA]  → Baseline → portafolio 9 modelos → validación temporal
-      ↓
 [04_Clustering]     → Segmentación no supervisada de perfiles de riesgo
       ↓
 [05_Reportes]       → Síntesis · comparativa DCSA vs DSSA · recomendaciones
